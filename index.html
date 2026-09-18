@@ -626,24 +626,26 @@ function updatePlayer(){
 
 function startGame(){
 
-  showPage("play");
-
   stopGame();
 
   gameRunning=true;
   data.score=0;
 
-  document.getElementById("score").textContent=0;
-  document.getElementById("lives").textContent=3;
-  document.getElementById("level").textContent=1;
+  document.getElementById("score").textContent="0";
+  document.getElementById("lives").textContent="3";
+  document.getElementById("level").textContent="1";
 
   playerX=1;
   updatePlayer();
 
-  obstacles.forEach(o=>o.remove());
+  obstacles.forEach(o=>{
+    if(o.el) o.el.remove();
+  });
   obstacles=[];
 
-  roadLines.forEach(l=>l.remove());
+  roadLines.forEach(l=>{
+    if(l) l.remove();
+  });
   roadLines=[];
 
   createRoadLines();
@@ -657,17 +659,7 @@ function startGame(){
 
   animation=requestAnimationFrame(gameLoop);
 }
-
-function stopGame(){
-
-  gameRunning=false;
-
-  if(animation){
-    cancelAnimationFrame(animation);
-    animation=null;
-  }
-}
-
+  
 /* =========================
    STRASSE
 ========================= */
