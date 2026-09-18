@@ -820,11 +820,11 @@ e.y+=speed;
 e.el.style.top=e.y+"px";
 
 if(
-e.lane===lane &&
-e.y>485 &&
-e.y<545
-)
-
+  e.lane === lane &&
+  e.y > 455 &&
+  e.y < 570
+){
+  
 e.el.remove();
 enemies.splice(index,1);
 
