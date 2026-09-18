@@ -588,28 +588,28 @@ const maps=[
  id:"Desert Run",
  name:"Desert Run",
  icon:"🏜️",
- price:500,
+ price:1000,
  bg:"#8b572a"
 },
 {
  id:"Snow Valley",
  name:"Snow Valley",
  icon:"❄️",
- price:1000,
+ price:2000,
  bg:"#647b91"
 },
 {
  id:"Forest Road",
  name:"Forest Road",
  icon:"🌲",
- price:2000,
+ price:4000,
  bg:"#173b24"
 },
 {
  id:"Night Highway",
  name:"Night Highway",
  icon:"🌙",
- price:4000,
+ price:7000,
  bg:"#080b20"
 }
 ];
@@ -821,9 +821,9 @@ e.el.style.top=e.y+"px";
 
 if(
 e.lane===lane &&
-e.y>455 &&
-e.y<570
-){
+e.y>485 &&
+e.y<545
+)
 
 e.el.remove();
 enemies.splice(index,1);
