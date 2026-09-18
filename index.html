@@ -798,93 +798,79 @@ y:-130
 /* =========================
    GAME LOOP
 ========================= */
-
 function gameLoop(){
 
-if(!running)return;
+  if(!running) return;
 
-spawn++;
+  spawn++;
 
-if(spawn>45){
+  if(spawn > 45){
+    createEnemy();
+    spawn = 0;
+  }
 
-createEnemy();
+  enemies.forEach((e,index)=>{
 
-spawn=0;
+    e.y += speed;
+    e.el.style.top = e.y + "px";
 
-}
+    // kleinere Hitbox
+    if(
+      e.lane === lane &&
+      e.y > 490 &&
+      e.y < 550
+    ){
 
-enemies.forEach((e,index)=>{
+      e.el.remove();
+      enemies.splice(index,1);
 
-e.y+=speed;
+      lives--;
 
-e.el.style.top=e.y+"px";
+      document.getElementById("lives").textContent = lives;
 
-if(
-  e.lane === lane &&
-  e.y > 455 &&
-  e.y < 570
-){
-  
-e.el.remove();
-enemies.splice(index,1);
+      if(lives <= 0){
 
-lives--;
+        running = false;
 
-document.getElementById("lives")
-.textContent=lives;
+        document.getElementById("message").textContent =
+          "💥 GAME OVER – " + score + " Punkte";
 
-if(lives<=0){
+        if(score > data.best){
+          data.best = score;
+        }
 
-running=false;
+        save();
+        return;
+      }
+    }
 
-document.getElementById("message")
-.textContent=
-"💥 GAME OVER – "+score+" Punkte";
+    if(e.y > 630){
 
-if(score>data.best)
-data.best=score;
+      e.el.remove();
+      enemies.splice(index,1);
 
-save();
+      score += 10;
+      data.coins++;
 
-return;
+      if(score > data.best){
+        data.best = score;
+      }
 
-}
+      document.getElementById("score").textContent = score;
+      document.getElementById("coins").textContent = data.coins;
 
-}
+      let level = Math.floor(score / 500) + 1;
 
-if(e.y>630){
+      document.getElementById("level").textContent = level;
 
-e.el.remove();
+      speed = 4 + (level - 1) * 0.5;
 
-enemies.splice(index,1);
+      save();
+    }
 
-score+=10;
-data.coins++;
+  });
 
-if(score>data.best)
-data.best=score;
-
-document.getElementById("score")
-.textContent=score;
-
-document.getElementById("coins")
-.textContent=data.coins;
-
-let level=Math.floor(score/500)+1;
-
-document.getElementById("level")
-.textContent=level;
-
-speed=4+(level-1)*0.5;
-
-save();
-
-}
-
-});
-
-animation=requestAnimationFrame(gameLoop);
-
+  animation = requestAnimationFrame(gameLoop);
 }
 
 /* =========================
