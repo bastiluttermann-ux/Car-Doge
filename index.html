@@ -2,69 +2,51 @@
 <html lang="de">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>CAR DODGE – Erstellt von Basti</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CAR DODGE – Basti</title>
 
 <style>
 *{box-sizing:border-box}
 
 body{
   margin:0;
-  font-family:Arial,Helvetica,sans-serif;
-  background:linear-gradient(135deg,#07111f,#111827);
+  font-family:Arial,sans-serif;
+  background:#101827;
   color:white;
+  text-align:center;
 }
 
 header{
+  background:linear-gradient(90deg,#ff5500,#ff9900);
   padding:18px;
-  text-align:center;
-  background:linear-gradient(90deg,#ff5e00,#ff9d00);
-  box-shadow:0 5px 20px #0008;
 }
 
-header h1{
-  margin:0;
-  font-size:32px;
-  letter-spacing:3px;
-}
-
-header p{
-  margin:5px 0 0;
-  font-weight:bold;
-}
+header h1{margin:0}
+header p{margin:5px}
 
 nav{
   display:flex;
   flex-wrap:wrap;
   justify-content:center;
-  gap:7px;
+  gap:6px;
   padding:10px;
-  background:#0b1220;
+  background:#080d16;
 }
 
-nav button,
 button{
   border:0;
-  border-radius:10px;
-  padding:11px 16px;
-  background:#ff6a00;
+  border-radius:12px;
+  padding:13px 18px;
+  background:#ff6800;
   color:white;
   font-weight:bold;
+  font-size:15px;
   cursor:pointer;
-  transition:.2s;
-}
-
-nav button:hover,
-button:hover{
-  transform:translateY(-2px);
-  filter:brightness(1.15);
 }
 
 .page{
   display:none;
-  max-width:1100px;
-  margin:auto;
-  padding:25px;
+  padding:20px;
 }
 
 .page.active{
@@ -72,276 +54,174 @@ button:hover{
 }
 
 .card{
-  background:#111c2e;
-  border:1px solid #26364f;
-  border-radius:18px;
+  background:#182337;
+  border-radius:15px;
   padding:20px;
-  margin:15px 0;
-  box-shadow:0 10px 30px #0005;
+  margin:15px auto;
+  max-width:600px;
 }
 
-h2{
-  color:#ff8a00;
-}
+/* SPIEL */
 
-/* START */
-
-.hero{
-  text-align:center;
-  padding:45px 20px;
-}
-
-.hero h2{
-  font-size:42px;
+#hud{
+  display:flex;
+  justify-content:center;
+  flex-wrap:wrap;
+  gap:8px;
   margin:10px;
 }
 
-.hero p{
-  font-size:18px;
-  color:#cbd5e1;
+.hud{
+  background:#182337;
+  padding:9px 14px;
+  border-radius:10px;
 }
 
-/* GAME */
-
-#gameBox{
+#game{
   position:relative;
-  width:min(430px,95vw);
-  height:650px;
-  margin:20px auto;
+  width:95vw;
+  max-width:400px;
+  height:600px;
+  margin:auto;
   overflow:hidden;
-  border:5px solid #333;
+  border:5px solid #444;
   border-radius:20px;
-  background:#222;
-  box-shadow:0 20px 50px #000;
-}
-
-#road{
-  position:absolute;
-  inset:0;
   background:
-    linear-gradient(90deg,
+    linear-gradient(
+      90deg,
       #222 0%,
-      #292929 12%,
-      #333 12%,
-      #333 88%,
-      #292929 88%,
-      #222 100%);
-  overflow:hidden;
+      #333 15%,
+      #333 85%,
+      #222 100%
+    );
 }
 
-.roadLine{
+.line{
   position:absolute;
-  width:8px;
-  height:80px;
-  background:#fff;
-  border-radius:5px;
-  opacity:.8;
-}
-
-.edge{
-  position:absolute;
-  top:0;
-  bottom:0;
   width:7px;
-  background:#ffd400;
+  height:70px;
+  background:white;
+  left:50%;
+  transform:translateX(-50%);
+  border-radius:5px;
 }
-
-.edge.left{left:10%}
-.edge.right{right:10%}
 
 #player{
   position:absolute;
-  width:72px;
-  height:120px;
-  bottom:45px;
-  left:calc(50% - 36px);
-  z-index:10;
-  transition:left .08s;
-}
-
-/* schönes Auto */
-
-.carBody{
-  position:absolute;
-  left:8px;
-  top:5px;
-  width:56px;
-  height:110px;
-  border-radius:20px 20px 14px 14px;
-  background:linear-gradient(90deg,#b90000,#ff3030,#9e0000);
-  border:2px solid #ff7676;
-  box-shadow:inset 8px 0 10px #fff3,inset -8px 0 10px #0005,0 8px 18px #0009;
-}
-
-.carRoof{
-  position:absolute;
-  left:15px;
-  top:28px;
-  width:42px;
-  height:42px;
-  border-radius:12px;
-  background:linear-gradient(135deg,#bdeaff,#42667d);
-  border:2px solid #8fc4dc;
-}
-
-.carRoof:after{
-  content:"";
-  position:absolute;
+  bottom:35px;
   left:50%;
-  top:3px;
-  bottom:3px;
-  width:2px;
-  background:#ffffff88;
+  transform:translateX(-50%);
+  width:65px;
+  height:110px;
+  z-index:5;
+}
+
+/* Auto */
+
+.body{
+  position:absolute;
+  width:52px;
+  height:100px;
+  left:7px;
+  top:5px;
+  border-radius:18px;
+  background:linear-gradient(90deg,#8b0000,#ff3333,#8b0000);
+  border:2px solid #ff8888;
+}
+
+.window{
+  position:absolute;
+  width:38px;
+  height:38px;
+  left:13px;
+  top:25px;
+  border-radius:10px;
+  background:linear-gradient(135deg,#dff8ff,#3d6578);
 }
 
 .light{
   position:absolute;
-  width:13px;
-  height:8px;
-  background:#fff7b0;
-  border-radius:5px;
-  box-shadow:0 0 12px #fff;
-}
-
-.light.left{left:12px;top:8px}
-.light.right{right:12px;top:8px}
-
-.tail{
-  position:absolute;
   width:12px;
-  height:7px;
-  background:#ff1717;
-  border-radius:4px;
-  bottom:7px;
-  box-shadow:0 0 8px red;
+  height:8px;
+  top:8px;
+  background:#ffffaa;
+  border-radius:5px;
+  box-shadow:0 0 10px white;
 }
 
-.tail.left{left:12px}
-.tail.right{right:12px}
+.light1{left:12px}
+.light2{right:12px}
 
 .wheel{
   position:absolute;
-  width:11px;
-  height:28px;
-  background:#080808;
-  border-radius:6px;
+  width:10px;
+  height:25px;
+  background:#050505;
+  border-radius:5px;
 }
 
-.wheel.l1{left:-3px;top:28px}
-.wheel.l2{left:-3px;bottom:23px}
-.wheel.r1{right:-3px;top:28px}
-.wheel.r2{right:-3px;bottom:23px}
+.w1{left:0;top:30px}
+.w2{left:0;bottom:20px}
+.w3{right:0;top:30px}
+.w4{right:0;bottom:20px}
 
 /* Gegner */
 
 .enemy{
   position:absolute;
-  width:68px;
-  height:112px;
-  z-index:8;
+  width:65px;
+  height:110px;
+  z-index:4;
 }
 
-.enemy .carBody{
-  width:52px;
-  height:103px;
-  left:8px;
-  top:5px;
-  background:linear-gradient(90deg,#0647a5,#1687ff,#04347e);
+.enemy .body{
+  background:linear-gradient(90deg,#0044aa,#1688ff,#003477);
 }
 
-.enemy .carRoof{
-  background:linear-gradient(135deg,#dff5ff,#527083);
+.enemy.green .body{
+  background:linear-gradient(90deg,#006b2d,#13d85f,#005522);
 }
 
-.enemy.red .carBody{
-  background:linear-gradient(90deg,#740000,#e51e1e,#650000);
+.enemy.yellow .body{
+  background:linear-gradient(90deg,#9a7200,#ffd51c,#8a6300);
 }
 
-.enemy.green .carBody{
-  background:linear-gradient(90deg,#075d29,#12c95b,#06451f);
-}
+/* Handy Steuerung */
 
-.enemy.yellow .carBody{
-  background:linear-gradient(90deg,#9b7100,#ffd51a,#8b6500);
-}
-
-/* HUD */
-
-#hud{
+.controls{
   display:flex;
-  justify-content:space-around;
-  flex-wrap:wrap;
-  gap:8px;
-  padding:10px;
-  background:#090f19;
-  font-weight:bold;
+  justify-content:center;
+  gap:25px;
+  margin:15px;
 }
 
-.hudBox{
-  padding:7px 12px;
-  background:#162236;
-  border-radius:9px;
-}
-
-#gameMessage{
-  text-align:center;
-  min-height:30px;
-  font-weight:bold;
-  color:#ffb000;
+.controls button{
+  width:120px;
+  height:70px;
+  font-size:30px;
+  touch-action:manipulation;
 }
 
 .grid{
   display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
-  gap:15px;
+  grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
+  gap:12px;
 }
 
-.shopItem{
-  background:#17243a;
+.item{
+  background:#182337;
+  padding:15px;
   border-radius:15px;
-  padding:18px;
-  text-align:center;
-}
-
-.shopCar{
-  width:70px;
-  height:110px;
-  margin:10px auto;
-  transform:scale(.8);
-}
-
-.price{
-  color:#ffd000;
-  font-weight:bold;
-}
-
-.selected{
-  border:2px solid #00ff88;
-}
-
-.locked{
-  opacity:.65;
-}
-
-.stat{
-  font-size:20px;
-  margin:10px 0;
 }
 
 input{
   padding:12px;
   border-radius:8px;
-  border:1px solid #555;
-  background:#101827;
-  color:white;
+  border:0;
 }
 
-/* Mobile */
-
-@media(max-width:600px){
-  header h1{font-size:25px}
-  .page{padding:12px}
-  #gameBox{height:600px}
+@media(min-width:700px){
+  .controls{display:none}
 }
 </style>
 </head>
@@ -349,752 +229,625 @@ input{
 <body>
 
 <header>
-  <h1>🚗 CAR DODGE</h1>
-  <p>Erstellt von Basti</p>
+<h1>🚗 CAR DODGE</h1>
+<p>Erstellt von Basti</p>
 </header>
 
 <nav>
-  <button onclick="showPage('start')">🏠 Start</button>
-  <button onclick="showPage('play')">🏁 Fahren</button>
-  <button onclick="showPage('shop')">🛒 Shop</button>
-  <button onclick="showPage('garage')">🚗 Garage</button>
-  <button onclick="showPage('maps')">🗺️ Maps</button>
-  <button onclick="showPage('missions')">🎯 Missionen</button>
-  <button onclick="showPage('stats')">📊 Stats</button>
-  <button onclick="showPage('admin')">🔐 Admin</button>
+<button onclick="page('home')">🏠 Start</button>
+<button onclick="page('gamePage')">🏁 Spielen</button>
+<button onclick="page('shop')">🛒 Shop</button>
+<button onclick="page('garage')">🚗 Garage</button>
+<button onclick="page('stats')">📊 Stats</button>
+<button onclick="page('admin')">🔐 Admin</button>
 </nav>
 
 <!-- START -->
 
-<section id="start" class="page active">
-  <div class="hero">
-    <h2>CAR DODGE</h2>
-    <p>Weiche dem Verkehr aus und fahre immer weiter!</p>
-    <button onclick="startGame()">🚀 SPIEL STARTEN</button>
-  </div>
+<section id="home" class="page active">
 
-  <div class="card">
-    <h2>🎮 Steuerung</h2>
-    <p>⬅️ Linker Pfeil / A = nach links</p>
-    <p>➡️ Rechter Pfeil / D = nach rechts</p>
-    <p>🚗 Dein Auto bewegt sich – der Verkehr kommt auf dich zu!</p>
-  </div>
+<div class="card">
+<h2>🚗 CAR DODGE</h2>
+
+<p>Weiche den Autos aus!</p>
+
+<button onclick="startGame()">
+🚀 SPIEL STARTEN
+</button>
+</div>
+
+<div class="card">
+<p>📱 Handy: Benutze die Pfeilbuttons</p>
+<p>💻 PC: Benutze ← und →</p>
+</div>
+
 </section>
 
 <!-- SPIEL -->
 
-<section id="play" class="page">
+<section id="gamePage" class="page">
 
-  <div id="hud">
-    <div class="hudBox">🏆 <span id="score">0</span></div>
-    <div class="hudBox">🪙 <span id="coins">0</span></div>
-    <div class="hudBox">❤️ <span id="lives">3</span></div>
-    <div class="hudBox">⚡ Level <span id="level">1</span></div>
-  </div>
+<div id="hud">
+<div class="hud">🏆 <span id="score">0</span></div>
+<div class="hud">🪙 <span id="coins">0</span></div>
+<div class="hud">❤️ <span id="lives">3</span></div>
+</div>
 
-  <div id="gameBox">
-    <div id="road">
-      <div class="edge left"></div>
-      <div class="edge right"></div>
+<div id="game">
 
-      <div id="player">
-        <div class="carBody"></div>
-        <div class="carRoof"></div>
-        <div class="light left"></div>
-        <div class="light right"></div>
-        <div class="tail left"></div>
-        <div class="tail right"></div>
-        <div class="wheel l1"></div>
-        <div class="wheel l2"></div>
-        <div class="wheel r1"></div>
-        <div class="wheel r2"></div>
-      </div>
-    </div>
-  </div>
+<div class="line" style="top:0"></div>
+<div class="line" style="top:120px"></div>
+<div class="line" style="top:240px"></div>
+<div class="line" style="top:360px"></div>
+<div class="line" style="top:480px"></div>
 
-  <div id="gameMessage">Drücke Start, um loszufahren!</div>
-  <button onclick="startGame()">▶️ Start / Neustart</button>
+<div id="player">
+
+<div class="body"></div>
+<div class="window"></div>
+
+<div class="light light1"></div>
+<div class="light light2"></div>
+
+<div class="wheel w1"></div>
+<div class="wheel w2"></div>
+<div class="wheel w3"></div>
+<div class="wheel w4"></div>
+
+</div>
+
+</div>
+
+<div class="controls">
+
+<button onclick="left()">⬅️</button>
+<button onclick="right()">➡️</button>
+
+</div>
+
+<p id="message">Drücke Start!</p>
+
+<button onclick="startGame()">
+🔄 NEUSTART
+</button>
 
 </section>
 
 <!-- SHOP -->
 
 <section id="shop" class="page">
-  <h2>🛒 Shop</h2>
 
-  <div class="card">
-    Deine Münzen: 🪙 <b id="shopCoins">0</b>
-  </div>
+<h2>🛒 Shop</h2>
 
-  <div id="shopGrid" class="grid"></div>
+<div class="card">
+🪙 Münzen: <b id="shopCoins">0</b>
+</div>
+
+<div class="grid">
+
+<div class="item">
+<h3>🔴 Starter</h3>
+<p>Kostenlos</p>
+</div>
+
+<div class="item">
+<h3>🔵 Blitz</h3>
+<p>🪙 500</p>
+<button onclick="buy('blitz',500)">Kaufen</button>
+</div>
+
+<div class="item">
+<h3>🟢 Eco Racer</h3>
+<p>🪙 1000</p>
+<button onclick="buy('eco',1000)">Kaufen</button>
+</div>
+
+<div class="item">
+<h3>🟡 Golden GT</h3>
+<p>🪙 5000</p>
+<button onclick="buy('gold',5000)">Kaufen</button>
+</div>
+
+</div>
 </section>
 
 <!-- GARAGE -->
 
 <section id="garage" class="page">
-  <h2>🚗 Garage</h2>
-  <div id="garageGrid" class="grid"></div>
-</section>
 
-<!-- MAPS -->
+<h2>🚗 Garage</h2>
 
-<section id="maps" class="page">
-  <h2>🗺️ Maps</h2>
+<div class="card">
 
-  <div class="grid">
-    <div class="card">
-      <h3>🌃 Neon City</h3>
-      <p>Leuchtende Straßen und schneller Verkehr.</p>
-      <button onclick="selectMap('Neon City')">Auswählen</button>
-    </div>
+<p>Aktuelles Auto:</p>
 
-    <div class="card">
-      <h3>🏜️ Desert Run</h3>
-      <p>Heiße Wüste mit gefährlichen Fahrzeugen.</p>
-      <button onclick="selectMap('Desert Run')">Auswählen</button>
-    </div>
+<h2 id="carName">Starter</h2>
 
-    <div class="card">
-      <h3>❄️ Snow Valley</h3>
-      <p>Rutschige Straßen im Schnee.</p>
-      <button onclick="selectMap('Snow Valley')">Auswählen</button>
-    </div>
+<p>Freigeschaltete Autos:</p>
 
-    <div class="card">
-      <h3>🌲 Forest Road</h3>
-      <p>Eine enge Straße durch den Wald.</p>
-      <button onclick="selectMap('Forest Road')">Auswählen</button>
-    </div>
-  </div>
+<div id="cars"></div>
 
-  <div class="card">
-    Aktuelle Map: <b id="currentMap">Neon City</b>
-  </div>
-</section>
+</div>
 
-<!-- MISSIONEN -->
-
-<section id="missions" class="page">
-  <h2>🎯 Missionen</h2>
-
-  <div class="card">
-    <h3>🏁 Anfänger</h3>
-    <p>Erreiche 500 Punkte.</p>
-    <button onclick="claimMission(500,100,'m1')">Belohnung holen</button>
-  </div>
-
-  <div class="card">
-    <h3>🔥 Profi</h3>
-    <p>Erreiche 1500 Punkte.</p>
-    <button onclick="claimMission(1500,300,'m2')">Belohnung holen</button>
-  </div>
-
-  <div class="card">
-    <h3>👑 Legende</h3>
-    <p>Erreiche 5000 Punkte.</p>
-    <button onclick="claimMission(5000,1000,'m3')">Belohnung holen</button>
-  </div>
 </section>
 
 <!-- STATS -->
 
 <section id="stats" class="page">
-  <h2>📊 Statistiken</h2>
 
-  <div class="card">
-    <div class="stat">🏆 Bestscore: <b id="bestScore">0</b></div>
-    <div class="stat">🪙 Münzen: <b id="statCoins">0</b></div>
-    <div class="stat">🚗 Auto: <b id="statCar">Starter</b></div>
-    <div class="stat">🗺️ Map: <b id="statMap">Neon City</b></div>
-  </div>
+<h2>📊 Statistiken</h2>
+
+<div class="card">
+
+<p>🏆 Bestscore: <b id="best">0</b></p>
+<p>🪙 Münzen: <b id="statCoins">0</b></p>
+
+</div>
+
 </section>
 
 <!-- ADMIN -->
 
 <section id="admin" class="page">
-  <h2>🔐 Admin Panel</h2>
 
-  <div id="adminLogin" class="card">
-    <p>Admin-Code eingeben:</p>
-    <input id="adminCode" type="password" placeholder="Code">
-    <button onclick="loginAdmin()">Einloggen</button>
-  </div>
+<h2>🔐 Admin</h2>
 
-  <div id="adminPanel" class="card" style="display:none">
-    <h3>⚙️ Admin</h3>
+<div class="card" id="login">
 
-    <button onclick="adminCoins()">🪙 +1000 Münzen</button>
-    <button onclick="adminScore()">🏆 +5000 Punkte</button>
-    <button onclick="unlockAll()">🔓 Alle Autos freischalten</button>
-    <button onclick="resetGame()">♻️ Spiel zurücksetzen</button>
-  </div>
+<input
+id="code"
+type="password"
+placeholder="Admin-Code">
+
+<br><br>
+
+<button onclick="login()">
+Einloggen
+</button>
+
+</div>
+
+<div class="card" id="panel" style="display:none">
+
+<h3>⚙️ Admin Panel</h3>
+
+<button onclick="coinsAdmin()">
+🪙 +1000 Münzen
+</button>
+
+<br><br>
+
+<button onclick="scoreAdmin()">
+🏆 +5000 Punkte
+</button>
+
+<br><br>
+
+<button onclick="resetGame()">
+♻️ Zurücksetzen
+</button>
+
+</div>
+
 </section>
 
 <script>
 
-/* =========================
-   DATEN
-========================= */
+/* DATEN */
 
-const cars=[
-  {id:"starter",name:"Starter",price:0,color:"red"},
-  {id:"blitz",name:"Blitz",price:500,color:"blue"},
-  {id:"eco",name:"Eco Racer",price:1000,color:"green"},
-  {id:"night",name:"Night Rider",price:2000,color:"black"},
-  {id:"gold",name:"Golden GT",price:5000,color:"yellow"}
-];
-
-let data=JSON.parse(localStorage.getItem("carDodgeBasti"))||{
-  coins:0,
-  score:0,
-  best:0,
-  selectedCar:"starter",
-  unlocked:["starter"],
-  map:"Neon City",
-  missions:{}
+let data=JSON.parse(
+localStorage.getItem("carDodge")
+)||{
+coins:0,
+best:0,
+car:"Starter",
+owned:["Starter"]
 };
 
-let gameRunning=false;
-let playerX=1;
-let obstacles=[];
-let roadLines=[];
-let spawnTimer=0;
-let animation;
-let lastTime=0;
-let speed=5;
+let running=false;
+let playerLane=1;
+let enemies=[];
+let score=0;
+let lives=3;
+let speed=4;
+let timer=0;
+let loop;
 
-/* =========================
-   SPEICHERN
-========================= */
+/* SPEICHERN */
 
 function save(){
-  localStorage.setItem("carDodgeBasti",JSON.stringify(data));
-  updateUI();
+
+localStorage.setItem(
+"carDodge",
+JSON.stringify(data)
+);
+
+update();
+
 }
 
-function updateUI(){
+/* SEITEN */
 
-  document.getElementById("coins").textContent=data.coins;
-  document.getElementById("shopCoins").textContent=data.coins;
-  document.getElementById("statCoins").textContent=data.coins;
-  document.getElementById("bestScore").textContent=data.best;
-  document.getElementById("statCar").textContent=
-    cars.find(c=>c.id===data.selectedCar)?.name||"Starter";
-  document.getElementById("statMap").textContent=data.map;
-  document.getElementById("currentMap").textContent=data.map;
+function page(id){
 
-  renderShop();
-  renderGarage();
+document.querySelectorAll(".page")
+.forEach(x=>x.classList.remove("active"));
+
+document.getElementById(id)
+.classList.add("active");
+
+update();
 }
 
-/* =========================
-   SEITEN
-========================= */
-
-function showPage(id){
-
-  document.querySelectorAll(".page").forEach(p=>{
-    p.classList.remove("active");
-  });
-
-  document.getElementById(id).classList.add("active");
-
-  if(id!=="play"){
-    stopGame();
-  }
-
-  updateUI();
-}
-
-/* =========================
-   AUTO
-========================= */
-
-function updatePlayer(){
-
-  const player=document.getElementById("player");
-
-  const positions=["25%","50%","75%"];
-
-  player.style.left=
-    "calc("+positions[playerX]+" - 36px)";
-}
-
-/* =========================
-   SPIEL START
-========================= */
+/* START */
 
 function startGame(){
 
-  stopGame();
+page("gamePage");
 
-  gameRunning=true;
-  data.score=0;
+running=false;
 
-  document.getElementById("score").textContent="0";
-  document.getElementById("lives").textContent="3";
-  document.getElementById("level").textContent="1";
+cancelAnimationFrame(loop);
 
-  playerX=1;
-  updatePlayer();
+enemies.forEach(e=>e.el.remove());
 
-  obstacles.forEach(o=>{
-    if(o.el) o.el.remove();
-  });
-  obstacles=[];
+enemies=[];
 
-  roadLines.forEach(l=>{
-    if(l) l.remove();
-  });
-  roadLines=[];
+score=0;
+lives=3;
+speed=4;
+timer=0;
+playerLane=1;
 
-  createRoadLines();
+document.getElementById("score").textContent=0;
+document.getElementById("lives").textContent=3;
+document.getElementById("message").textContent=
+"🚗 LOS GEHT'S!";
 
-  speed=5;
-  spawnTimer=0;
-  lastTime=performance.now();
+movePlayer();
 
-  document.getElementById("gameMessage").textContent=
-    "🚗 LOS GEHT'S!";
+running=true;
 
-  animation=requestAnimationFrame(gameLoop);
-}
-  
-/* =========================
-   STRASSE
-========================= */
+loop=requestAnimationFrame(gameLoop);
 
-function createRoadLines(){
-
-  const road=document.getElementById("road");
-
-  for(let i=0;i<8;i++){
-
-    const line=document.createElement("div");
-
-    line.className="roadLine";
-
-    line.style.left="calc(50% - 4px)";
-    line.style.top=(i*100-100)+"px";
-
-    road.appendChild(line);
-
-    roadLines.push(line);
-  }
 }
 
-function moveRoad(){
+/* AUTO */
 
-  roadLines.forEach(line=>{
+function movePlayer(){
 
-    let y=parseFloat(line.style.top);
+let lanes=["25%","50%","75%"];
 
-    y+=speed;
+document.getElementById("player")
+.style.left=lanes[playerLane];
 
-    if(y>650){
-      y=-80;
-    }
-
-    line.style.top=y+"px";
-  });
 }
 
-/* =========================
-   GEGNER
-========================= */
+/* LINKS */
 
-function createObstacle(){
+function left(){
 
-  const road=document.getElementById("road");
+if(!running)return;
 
-  const enemy=document.createElement("div");
+playerLane--;
 
-  enemy.className="enemy";
+if(playerLane<0)
+playerLane=0;
 
-  const types=["","red","green","yellow"];
-  const type=types[Math.floor(Math.random()*types.length)];
+movePlayer();
 
-  if(type) enemy.classList.add(type);
-
-  const lane=Math.floor(Math.random()*3);
-
-  const positions=["25%","50%","75%"];
-
-  enemy.style.left=
-    "calc("+positions[lane]+" - 34px)";
-
-  enemy.style.top="-130px";
-
-  enemy.innerHTML=`
-    <div class="carBody"></div>
-    <div class="carRoof"></div>
-    <div class="light left"></div>
-    <div class="light right"></div>
-    <div class="wheel l1"></div>
-    <div class="wheel l2"></div>
-    <div class="wheel r1"></div>
-    <div class="wheel r2"></div>
-  `;
-
-  road.appendChild(enemy);
-
-  obstacles.push({
-    el:enemy,
-    lane:lane,
-    y:-130
-  });
 }
 
-/* =========================
-   KOLLISION
-========================= */
+/* RECHTS */
 
-function checkCollision(o){
+function right(){
 
-  if(o.lane!==playerX)return false;
+if(!running)return;
 
-  const playerTop=505;
-  const playerBottom=625;
+playerLane++;
 
-  const enemyTop=o.y;
-  const enemyBottom=o.y+112;
+if(playerLane>2)
+playerLane=2;
 
-  return enemyBottom>playerTop &&
-         enemyTop<playerBottom;
+movePlayer();
+
 }
 
-/* =========================
-   SPIEL LOOP
-========================= */
+/* PC */
 
-function gameLoop(time){
+document.addEventListener("keydown",function(e){
 
-  if(!gameRunning)return;
+if(e.key==="ArrowLeft")
+left();
 
-  const delta=Math.min((time-lastTime)/16.67,2);
-  lastTime=time;
+if(e.key==="ArrowRight")
+right();
 
-  moveRoad();
-
-  spawnTimer+=delta;
-
-  if(spawnTimer>55){
-
-    createObstacle();
-
-    spawnTimer=0;
-  }
-
-  obstacles.forEach((o,index)=>{
-
-    o.y+=speed*delta;
-
-    o.el.style.top=o.y+"px";
-
-    if(checkCollision(o)){
-
-      o.el.remove();
-      obstacles.splice(index,1);
-
-      loseLife();
-
-      return;
-    }
-
-    if(o.y>670){
-
-      o.el.remove();
-      obstacles.splice(index,1);
-
-      data.score+=10;
-      data.coins+=1;
-
-      document.getElementById("score").textContent=data.score;
-      document.getElementById("coins").textContent=data.coins;
-
-      if(data.score>data.best){
-        data.best=data.score;
-      }
-
-      const level=Math.floor(data.score/500)+1;
-
-      document.getElementById("level").textContent=level;
-
-      speed=5+(level-1)*0.7;
-
-      save();
-    }
-  });
-
-  animation=requestAnimationFrame(gameLoop);
-}
-
-/* =========================
-   LEBEN
-========================= */
-
-function loseLife(){
-
-  let lives=parseInt(
-    document.getElementById("lives").textContent
-  );
-
-  lives--;
-
-  document.getElementById("lives").textContent=lives;
-
-  document.getElementById("gameMessage").textContent=
-    "💥 Autsch!";
-
-  if(lives<=0){
-
-    gameRunning=false;
-
-    document.getElementById("gameMessage").textContent=
-      "🏁 GAME OVER – Punkte: "+data.score;
-
-    save();
-
-    return;
-  }
-}
-
-/* =========================
-   STEUERUNG
-========================= */
-
-document.addEventListener("keydown",e=>{
-
-  if(!gameRunning)return;
-
-  if(e.key==="ArrowLeft" || e.key.toLowerCase()==="a"){
-
-    playerX=Math.max(0,playerX-1);
-    updatePlayer();
-  }
-
-  if(e.key==="ArrowRight" || e.key.toLowerCase()==="d"){
-
-    playerX=Math.min(2,playerX+1);
-    updatePlayer();
-  }
 });
 
-/* =========================
-   SHOP
-========================= */
+/* GEGNER */
 
-function renderShop(){
+function createEnemy(){
 
-  const grid=document.getElementById("shopGrid");
+let el=document.createElement("div");
 
-  grid.innerHTML="";
+el.className="enemy";
 
-  cars.forEach(car=>{
+let type=Math.floor(Math.random()*3);
 
-    const unlocked=data.unlocked.includes(car.id);
+if(type===1)
+el.classList.add("green");
 
-    const div=document.createElement("div");
+if(type===2)
+el.classList.add("yellow");
 
-    div.className="shopItem "+(!unlocked?"locked":"");
+el.innerHTML=`
 
-    div.innerHTML=`
-      <h3>${car.name}</h3>
+<div class="body"></div>
+<div class="window"></div>
 
-      <div class="shopCar">
-        <div class="carBody" style="background:linear-gradient(90deg,#333,#${car.color==="yellow"?"ffd21a":"1687ff"},#111)"></div>
-        <div class="carRoof"></div>
-      </div>
+<div class="light light1"></div>
+<div class="light light2"></div>
 
-      <div class="price">
-        ${car.price===0?"STARTER":"🪙 "+car.price}
-      </div>
+<div class="wheel w1"></div>
+<div class="wheel w2"></div>
+<div class="wheel w3"></div>
+<div class="wheel w4"></div>
 
-      ${
-        unlocked
-        ? "<p>✅ Freigeschaltet</p>"
-        : "<button onclick=\"buyCar('"+car.id+"')\">Kaufen</button>"
-      }
-    `;
+`;
 
-    grid.appendChild(div);
-  });
+let lane=Math.floor(Math.random()*3);
+
+let lanes=["25%","50%","75%"];
+
+el.style.left=lanes[lane];
+el.style.top="-120px";
+
+document.getElementById("game")
+.appendChild(el);
+
+enemies.push({
+el:el,
+lane:lane,
+y:-120
+});
+
 }
 
-function buyCar(id){
+/* SPIEL */
 
-  const car=cars.find(c=>c.id===id);
+function gameLoop(){
 
-  if(!car)return;
+if(!running)return;
 
-  if(data.unlocked.includes(id))return;
+timer++;
 
-  if(data.coins<car.price){
+if(timer>45){
 
-    alert("Du hast nicht genug Münzen!");
+createEnemy();
 
-    return;
-  }
+timer=0;
 
-  data.coins-=car.price;
-  data.unlocked.push(id);
-
-  save();
-
-  alert(car.name+" wurde freigeschaltet!");
 }
 
-/* =========================
-   GARAGE
-========================= */
+enemies.forEach((enemy,index)=>{
 
-function renderGarage(){
+enemy.y+=speed;
 
-  const grid=document.getElementById("garageGrid");
+enemy.el.style.top=
+enemy.y+"px";
 
-  grid.innerHTML="";
+if(
+enemy.lane===playerLane &&
+enemy.y>440 &&
+enemy.y<570
+){
 
-  cars.forEach(car=>{
+enemy.el.remove();
 
-    if(!data.unlocked.includes(car.id))return;
+enemies.splice(index,1);
 
-    const div=document.createElement("div");
+lives--;
 
-    div.className=
-      "shopItem "+
-      (data.selectedCar===car.id?"selected":"");
+document.getElementById("lives")
+.textContent=lives;
 
-    div.innerHTML=`
-      <h3>${car.name}</h3>
-      <p>🚗</p>
-      <button onclick="selectCar('${car.id}')">
-        ${data.selectedCar===car.id?"✅ Ausgewählt":"Auswählen"}
-      </button>
-    `;
+if(lives<=0){
 
-    grid.appendChild(div);
-  });
+running=false;
+
+document.getElementById("message")
+.textContent=
+"💥 GAME OVER – "+score+" Punkte";
+
+if(score>data.best)
+data.best=score;
+
+save();
+
+return;
+
 }
 
-function selectCar(id){
-
-  if(!data.unlocked.includes(id))return;
-
-  data.selectedCar=id;
-
-  save();
 }
 
-/* =========================
-   MAPS
-========================= */
+/* Vorbei */
 
-function selectMap(map){
+if(enemy.y>620){
 
-  data.map=map;
+enemy.el.remove();
 
-  save();
+enemies.splice(index,1);
 
-  alert("Map ausgewählt: "+map);
+score+=10;
+
+data.coins++;
+
+document.getElementById("score")
+.textContent=score;
+
+document.getElementById("coins")
+.textContent=data.coins;
+
+if(score>data.best)
+data.best=score;
+
+if(score%500===0)
+speed+=0.5;
+
+save();
+
 }
 
-/* =========================
-   MISSIONEN
-========================= */
+});
 
-function claimMission(required,reward,id){
+loop=requestAnimationFrame(gameLoop);
 
-  if(data.missions[id]){
-
-    alert("Mission bereits abgeschlossen!");
-
-    return;
-  }
-
-  if(data.best<required){
-
-    alert(
-      "Du brauchst mindestens "+
-      required+
-      " Punkte!"
-    );
-
-    return;
-  }
-
-  data.coins+=reward;
-  data.missions[id]=true;
-
-  save();
-
-  alert("🎉 Mission geschafft! +"+reward+" Münzen");
 }
 
-/* =========================
-   ADMIN
-========================= */
+/* SHOP */
 
-function loginAdmin(){
+function buy(name,price){
 
-  const code=document.getElementById("adminCode").value;
+if(data.owned.includes(name)){
 
-  if(code==="260513"){
+alert("Schon freigeschaltet!");
 
-    document.getElementById("adminLogin").style.display="none";
-    document.getElementById("adminPanel").style.display="block";
+return;
 
-  }else{
-
-    alert("❌ Falscher Code!");
-  }
 }
 
-function adminCoins(){
+if(data.coins<price){
 
-  data.coins+=1000;
+alert("Nicht genug Münzen!");
 
-  save();
+return;
 
-  alert("🪙 +1000 Münzen");
 }
 
-function adminScore(){
+data.coins-=price;
 
-  data.score+=5000;
+data.owned.push(name);
 
-  if(data.score>data.best){
-    data.best=data.score;
-  }
+save();
 
-  save();
+alert("🚗 Auto freigeschaltet!");
 
-  alert("🏆 +5000 Punkte");
 }
 
-function unlockAll(){
+/* GARAGE */
 
-  data.unlocked=cars.map(c=>c.id);
+function updateGarage(){
 
-  save();
+let box=document.getElementById("cars");
 
-  alert("🔓 Alle Autos freigeschaltet!");
+box.innerHTML="";
+
+data.owned.forEach(car=>{
+
+let b=document.createElement("button");
+
+b.textContent=
+car+
+(car===data.car?" ✅":"");
+
+b.onclick=function(){
+
+data.car=car;
+
+save();
+
+};
+
+box.appendChild(b);
+
+box.appendChild(
+document.createElement("br")
+);
+
+});
+
+document.getElementById("carName")
+.textContent=data.car;
+
+}
+
+/* UPDATE */
+
+function update(){
+
+document.getElementById("coins")
+.textContent=data.coins;
+
+document.getElementById("shopCoins")
+.textContent=data.coins;
+
+document.getElementById("statCoins")
+.textContent=data.coins;
+
+document.getElementById("best")
+.textContent=data.best;
+
+updateGarage();
+
+}
+
+/* ADMIN */
+
+function login(){
+
+if(
+document.getElementById("code").value
+==="260513"
+){
+
+document.getElementById("login")
+.style.display="none";
+
+document.getElementById("panel")
+.style.display="block";
+
+}else{
+
+alert("❌ Falscher Code!");
+
+}
+
+}
+
+function coinsAdmin(){
+
+data.coins+=1000;
+
+save();
+
+alert("🪙 +1000 Münzen");
+
+}
+
+function scoreAdmin(){
+
+data.best+=5000;
+
+save();
+
+alert("🏆 +5000 Punkte");
+
 }
 
 function resetGame(){
 
-  if(!confirm("Wirklich alles zurücksetzen?"))return;
+localStorage.removeItem("carDodge");
 
-  localStorage.removeItem("carDodgeBasti");
+location.reload();
 
-  location.reload();
 }
 
-/* =========================
-   START
-========================= */
+/* START */
 
-updateUI();
-updatePlayer();
+update();
+
+movePlayer();
 
 </script>
 
