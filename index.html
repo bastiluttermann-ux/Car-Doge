@@ -363,6 +363,7 @@ input{
 <nav>
 <button onclick="showPage('home')">🏠 Start</button>
 <button onclick="showPage('gamePage')">🏁 Fahren</button>
+<button onclick="showPage('leaderboardPage')">🏆 Leaderboard</button>
 <button onclick="showPage('carsPage')">🚗 Autos</button>
 <button onclick="showPage('mapsPage')">🗺️ Maps</button>
 <button onclick="showPage('shopPage')">🛒 Shop</button>
@@ -1178,7 +1179,77 @@ renderMaps();
 updateAll();
 movePlayer();
 
+  let leaderboard =
+  JSON.parse(localStorage.getItem("carDodgeLeaderboard")) || [];
+
+function saveLeaderboardScore(){
+
+  const name =
+    document.getElementById("playerName").value.trim();
+
+  if(!name){
+    alert("Bitte gib einen Namen ein!");
+    return;
+  }
+
+  leaderboard.push({
+    name: name,
+    score: score
+  });
+
+  leaderboard.sort((a,b) => b.score - a.score);
+
+  leaderboard = leaderboard.slice(0,10);
+
+  localStorage.setItem(
+    "carDodgeLeaderboard",
+    JSON.stringify(leaderboard)
+  );
+
+  showLeaderboard();
+}
+
+function showLeaderboard(){
+
+  const box =
+    document.getElementById("leaderboard");
+
+  if(!box) return;
+
+  box.innerHTML = "<h2>🏆 Top 10</h2>";
+
+  leaderboard.forEach((player,index)=>{
+
+    box.innerHTML += `
+      <div class="leaderboardRow">
+        <b>${index + 1}.</b>
+        ${player.name}
+        <span>${player.score} 🏆</span>
+      </div>
+    `;
+  });
+}
+
+showLeaderboard();
+  
 </script>
 
 </body>
+  <div id="leaderboardPage" class="page">
+  <h1>🏆 Leaderboard</h1>
+
+  <input
+    id="playerName"
+    type="text"
+    placeholder="Dein Name"
+    maxlength="15"
+  >
+
+  <button onclick="saveLeaderboardScore()">
+    💾 Punktzahl speichern
+  </button>
+
+  <div id="leaderboard"></div>
+</div>
+  
 </html>
